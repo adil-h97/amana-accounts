@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Amana'Accounts | Dubai Chartered Accountants</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="favicon-16.png" sizes="16x16" />
+<link rel="apple-touch-icon" href="favicon-180.png" />
+<style>
+  :root {
+    --ink-950: #000c19;
+    --ink-900: #01162d;
+    --ink-800: #0b2540;
+    --ink-700: #17395c;
+    --sand-100: #f6ebe4;
+    --sand-300: #d8c9bf;
+    --paper-blue: #e7f0fa;
+    --ember-500: #e7793b;
+    --ember-300: #ffb27a;
+    --mist-400: #93a4b8;
+
+    --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { overflow-y: auto; overflow-x: hidden; height: auto; }
+  html, body { margin: 0; padding: 0; background: var(--ink-900); color: var(--sand-100); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+  body { min-width: 320px; min-height: 100vh; height: auto; }
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--ember-300); outline-offset: 3px; }
+  .tabular { font-variant-numeric: tabular-nums; font-family: var(--font-mono); }
+  section { padding: clamp(3.5rem, 8vw, 6rem) clamp(1.25rem, 4vw, 3rem) 0; }
+  section:has(+ .closing-strip) { padding-bottom: clamp(3.5rem, 8vw, 6rem); }
+  .inner { max-width: 1080px; margin: 0 auto; }
+  .kicker { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ember-500); margin: 0 0 0.6rem; }
+  h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.9rem, 3.4vw, 2.6rem); line-height: 1.15; margin: 0 0 1rem; text-wrap: balance; }
+
+  /* ---------- header ---------- */
+  .site-header { padding: 1.4rem clamp(1.25rem, 4vw, 3rem); background: var(--ink-900); border-bottom: 1px solid rgba(246, 235, 228, 0.08); position: sticky; top: 0; z-index: 10; }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+  .logo { display: flex; align-items: center; gap: 0.3rem; }
+  .logo-mark { width: 38px; height: 32px; flex: none; object-fit: contain; display: block; }
+  .logo-word { font-family: var(--font-display); font-weight: 700; font-size: 1.65rem; letter-spacing: 0.005em; color: var(--sand-100); }
+  .logo-word .accent { color: var(--ember-500); font-weight: 900; -webkit-text-stroke: 0.5px var(--ember-500); }
+  .site-nav { display: flex; gap: clamp(1rem, 2.5vw, 2.1rem); font-size: 0.94rem; color: var(--sand-300); }
+  .site-nav a { position: relative; padding: 0.2rem 0; }
+  .site-nav a:hover { color: var(--sand-100); }
+  .site-nav a.current { color: var(--sand-100); }
+  .site-nav a.current::after { content: ""; position: absolute; left: 0; right: 0; bottom: -0.35rem; height: 2px; background: var(--ember-500); }
+  .nav-group { display: contents; }
+  .nav-toggle { display: none; width: 40px; height: 40px; flex: none; padding: 0; border: none; background: none; cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+  .nav-toggle-bar { display: block; width: 22px; height: 2px; background: var(--sand-100); transition: transform 0.2s ease, opacity 0.2s ease; }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  @media (prefers-reduced-motion: reduce) { .nav-toggle-bar { transition: none; } }
+  @media (max-width: 760px) {
+    .nav-toggle { display: flex; }
+    .nav-group { display: none; position: fixed; left: 0; right: 0; top: 0; flex-direction: column; align-items: stretch; gap: 0; background: var(--ink-950); border-bottom: 1px solid rgba(231, 121, 59, 0.22); box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4); padding: 0.5rem clamp(1.25rem, 4vw, 3rem) 1.5rem; z-index: 55; max-height: calc(100vh - 60px); overflow-y: auto; }
+    .nav-group.is-open { display: flex; }
+    .site-nav { flex-direction: column; gap: 0; width: 100%; }
+    .site-nav a { padding: 0.95rem 0; border-top: 1px solid rgba(246, 235, 228, 0.1); font-size: 1rem; width: 100%; }
+    .site-nav a:first-child { border-top: none; }
+    .nav-group .btn-primary { margin-top: 1rem; width: 100%; justify-content: center; }
+  }
+
+  /* ---------- buttons ---------- */
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; padding: 0.8rem 1.35rem; border-radius: 2px; white-space: nowrap; transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease; cursor: pointer; border: 1px solid transparent; }
+  .btn-primary { background: var(--ember-500); color: var(--ink-950); border-color: var(--ember-500); }
+  .btn-primary:hover { background: transparent; color: var(--ember-300); }
+  .btn-ghost { border: 1px solid rgba(246, 235, 228, 0.28); color: var(--sand-100); padding: 0.68rem 1.15rem; font-size: 0.88rem; }
+  .btn-ghost:hover { border-color: var(--ember-500); color: var(--ember-300); }
+  @media (max-width: 560px) { .btn-ghost { display: none; } }
+  .btn-tel { font-size: 0.95rem; color: var(--sand-300); border-bottom: 1px solid rgba(147, 164, 184, 0.4); padding-bottom: 2px; }
+  .btn-tel:hover { color: var(--sand-100); border-color: var(--sand-100); }
+  .btn-tel .tabular { color: var(--sand-100); }
+  .btn-dark { background: var(--ink-950); color: var(--sand-100); border-color: var(--ink-950); }
+  .btn-dark:hover { background: transparent; color: var(--ink-950); border-color: var(--ink-950); }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; padding: clamp(3.5rem, 9vh, 6rem) clamp(1.25rem, 4vw, 3rem) 0; overflow: hidden; background: radial-gradient(ellipse 60% 45% at 82% 8%, rgba(231, 121, 59, 0.10), transparent 60%), linear-gradient(180deg, var(--ink-900) 0%, var(--ink-900) 55%, var(--ink-800) 100%); }
+  .grid-overlay { position: absolute; inset: 0; background-image: repeating-linear-gradient(90deg, rgba(246, 235, 228, 0.055) 0 1px, transparent 1px 88px), repeating-linear-gradient(0deg, rgba(246, 235, 228, 0.055) 0 1px, transparent 1px 88px); -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 55%, transparent 92%); mask-image: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 55%, transparent 92%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 3; padding-bottom: clamp(6rem, 26vh, 9rem); }
+  .crop-mark { position: absolute; width: 16px; height: 16px; border-color: var(--ember-500); opacity: 0.55; z-index: 3; }
+  .crop-mark.tl { top: 1.6rem; left: clamp(1.25rem, 4vw, 3rem); border-top: 1px solid; border-left: 1px solid; }
+  .crop-mark.tr { top: 1.6rem; right: clamp(1.25rem, 4vw, 3rem); border-top: 1px solid; border-right: 1px solid; }
+  .ref-block { position: absolute; top: 3.4rem; right: clamp(1.25rem, 4vw, 3rem); z-index: 3; text-align: right; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.7; letter-spacing: 0.04em; color: var(--mist-400); }
+  .ref-block b { color: var(--sand-300); font-weight: 400; }
+  .hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.06; letter-spacing: -0.01em; margin: 2.75rem 0 1.3rem; text-wrap: balance; color: var(--sand-100); }
+  .hero .lede { font-size: clamp(1.02rem, 1.6vw, 1.18rem); line-height: 1.65; color: var(--mist-400); max-width: 46ch; margin: 0 0 2.2rem; }
+  .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1.6rem; }
+
+  /* ---------- skyline ---------- */
+  .skyline { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(170px, 30vw, 340px); z-index: 1; }
+  .skyline-glow { position: absolute; left: 70%; bottom: 10%; width: 420px; height: 420px; transform: translate(-50%, 25%); background: radial-gradient(circle, rgba(255, 178, 122, 0.32) 0%, rgba(255, 178, 122, 0.10) 45%, transparent 72%); filter: blur(1px); pointer-events: none; }
+  .skyline-far, .skyline-near { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; }
+  .skyline-far { height: 62%; background: var(--ink-700); opacity: 0.65; clip-path: polygon(0% 100%, 0% 68%, 5% 68%, 5% 50%, 10% 50%, 10% 70%, 15% 70%, 15% 42%, 20% 42%, 20% 66%, 27% 66%, 27% 52%, 33% 52%, 33% 74%, 39% 74%, 39% 58%, 45% 58%, 45% 35%, 51% 35%, 51% 62%, 57% 62%, 57% 48%, 63% 48%, 63% 70%, 70% 70%, 70% 44%, 76% 44%, 76% 60%, 83% 60%, 83% 50%, 89% 50%, 89% 68%, 95% 68%, 95% 48%, 100% 48%, 100% 100%); }
+  .skyline-near { height: 82%; background: var(--ink-950); clip-path: polygon(0% 100%, 0% 78%, 7% 78%, 7% 56%, 14% 56%, 14% 80%, 22% 80%, 22% 50%, 30% 50%, 30% 74%, 38% 74%, 38% 60%, 46% 60%, 46% 34%, 54% 34%, 54% 66%, 62% 66%, 62% 52%, 70% 52%, 70% 76%, 78% 76%, 78% 58%, 86% 58%, 86% 72%, 94% 72%, 94% 54%, 100% 54%, 100% 100%); }
+  .burj { position: absolute; bottom: 0; left: 70%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; z-index: 2; }
+  .burj > span { background: var(--ink-950); }
+  .burj-spire { width: 3px; height: clamp(38px, 6vw, 70px); background: var(--sand-300); opacity: 0.8; }
+  .t5 { width: 12px; height: clamp(36px, 5.5vw, 62px); }
+  .t4 { width: 20px; height: clamp(42px, 6.5vw, 70px); }
+  .t3 { width: 29px; height: clamp(50px, 7.5vw, 82px); }
+  .t2 { width: 37px; height: clamp(58px, 8.5vw, 92px); }
+  .t1 { width: 46px; height: clamp(66px, 10vw, 108px); }
+  .ledger-rule { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; z-index: 3; background: repeating-linear-gradient(90deg, var(--ember-500) 0 1.5px, transparent 1.5px 32px); opacity: 0.75; }
+  @media (max-width: 700px) { .burj { left: 84%; } .skyline-glow { left: 84%; } }
+
+  /* ---------- credentials strip ---------- */
+  .credentials { background: var(--ink-800); border-top: 1px solid rgba(231, 121, 59, 0.25); padding: 1.1rem clamp(1.25rem, 4vw, 3rem); }
+  .credentials-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: clamp(0.8rem, 2.4vw, 1.6rem); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sand-300); flex-wrap: wrap; }
+  .credentials-inner .div { color: var(--ember-500); opacity: 0.7; }
+
+  /* ---------- handle (services index + sidebar) ---------- */
+  .handle { background: var(--ink-900); }
+  .handle-grid { display: grid; grid-template-columns: 190px 1fr; gap: clamp(2rem, 5vw, 3.5rem); }
+  @media (max-width: 760px) { .handle-grid { grid-template-columns: 1fr; } }
+  .side-label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ember-500); margin: 0 0 1rem; }
+  .side-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; font-size: 0.86rem; color: var(--sand-300); }
+  .side-list li { padding: 0.7rem 0; border-top: 1px solid rgba(246, 235, 228, 0.12); }
+  .side-list li:first-child { border-top: none; padding-top: 0; }
+  @media (max-width: 760px) { .side-list { flex-direction: row; flex-wrap: wrap; gap: 1rem; } .side-list li { border-top: none; padding: 0; } }
+  .handle-main .lede-p { color: var(--mist-400); font-size: 1.02rem; line-height: 1.6; max-width: 60ch; margin: 0 0 2.4rem; }
+  .svc-index { border-top: 1px solid rgba(246, 235, 228, 0.14); }
+  .svc-row { display: grid; grid-template-columns: 46px 1fr; gap: 1.3rem; align-items: start; padding: 1.6rem 0; border-bottom: 1px solid rgba(246, 235, 228, 0.14); }
+  .svc-index .svc-row:last-child { padding-bottom: 2.2rem; }
+  .svc-row .code { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; color: var(--ember-500); border: 1px solid rgba(246, 235, 228, 0.25); padding: 0.2rem 0.4rem; width: fit-content; margin-top: 0.3rem; }
+  .svc-row h3 { margin: 0 0 0.35rem; }
+  .svc-row h3 a { display: inline-flex; align-items: baseline; gap: 0.5rem; font-family: var(--font-display); font-weight: 400; font-size: 1.25rem; color: var(--sand-100); transition: color 0.15s ease; }
+  .svc-row h3 a .arrow { font-family: var(--font-mono); font-size: 0.85rem; color: var(--ember-500); opacity: 0.65; transition: transform 0.15s ease, opacity 0.15s ease; }
+  .svc-row h3 a:hover { color: var(--ember-300); }
+  .svc-row h3 a:hover .arrow { opacity: 1; transform: translateX(3px); }
+  .svc-row p { margin: 0; font-size: 0.92rem; line-height: 1.5; color: var(--mist-400); max-width: 58ch; }
+
+  /* ---------- testimonial carousel ---------- */
+  .testimonial { background: var(--ink-900); border-top: 1px solid rgba(246, 235, 228, 0.14); padding-top: clamp(4.5rem, 9vw, 7rem); padding-bottom: clamp(4.5rem, 9vw, 7rem); }
+  .quote-carousel { position: relative; max-width: 720px; margin: 0 auto; text-align: center; }
+  .quote-track { display: grid; }
+  .quote-slide { grid-area: 1 / 1; opacity: 0; visibility: hidden; transition: opacity 0.6s ease; }
+  .quote-slide.is-active { opacity: 1; visibility: visible; }
+  .quote-slide .qmark { display: block; font-family: var(--font-display); font-size: 3.4rem; color: var(--ember-500); opacity: 0.4; line-height: 1; margin-bottom: 0.4rem; }
+  .quote-slide blockquote { font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: clamp(1.3rem, 2.2vw, 1.7rem); line-height: 1.44; margin: 0 0 1.1rem; color: var(--sand-100); text-wrap: balance; }
+  .quote-slide cite { font-family: var(--font-mono); font-style: normal; font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mist-400); }
+  .quote-controls { display: flex; align-items: center; justify-content: center; gap: 1.3rem; margin-top: 2.2rem; }
+  .quote-dots { display: flex; justify-content: center; gap: 0.6rem; }
+  .quote-dots button { position: relative; width: 14px; height: 3px; padding: 0; border: none; background: rgba(246, 235, 228, 0.22); cursor: pointer; transition: background 0.2s ease, width 0.2s ease; }
+  .quote-dots button::before { content: ""; position: absolute; inset: -14px; }
+  .quote-dots button.is-active { background: var(--ember-500); width: 24px; }
+  .quote-dots button:hover { background: var(--ember-300); }
+  .quote-arrow { width: 26px; height: 26px; padding: 0; display: flex; align-items: center; justify-content: center; background: none; border: none; color: var(--mist-400); cursor: pointer; transition: color 0.15s ease; flex: none; }
+  @media (max-width: 760px) { .quote-arrow { width: 40px; height: 40px; } }
+  .quote-arrow:hover { color: var(--ember-300); }
+  .quote-arrow svg { width: 15px; height: 15px; }
+  @media (prefers-reduced-motion: reduce) { .quote-slide { transition: none; } }
+
+  /* ---------- why (list + statement) ---------- */
+  .why { background: var(--ink-900); border-top: 1px solid rgba(246, 235, 228, 0.14); }
+  .why-grid { display: grid; grid-template-columns: 1fr 0.85fr; gap: clamp(2.5rem, 6vw, 4rem); align-items: center; }
+  @media (max-width: 860px) { .why-grid { grid-template-columns: 1fr; } }
+  .why-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.3rem; }
+  .why-col li { display: flex; gap: 0.9rem; align-items: flex-start; }
+  .why-col .mark { flex: none; width: 13px; height: 13px; margin-top: 0.3rem; border-top: 1.5px solid var(--ember-500); border-left: 1.5px solid var(--ember-500); opacity: 0.85; }
+  .why-col li h4 { margin: 0 0 0.2rem; font-size: 0.98rem; font-weight: 600; color: var(--sand-100); }
+  .why-col li p { margin: 0; font-size: 0.88rem; line-height: 1.48; color: var(--mist-400); }
+  .why-col li a { color: var(--ember-300); border-bottom: 1px solid rgba(255, 178, 122, 0.4); }
+
+  /* statement graphic */
+  .statement { background: var(--sand-100); color: var(--ink-900); border: 1px solid rgba(1, 22, 45, 0.14); padding: 1.6rem 1.7rem; }
+  .statement .s-head { display: flex; flex-direction: column; align-items: flex-start; gap: 0.15rem; border-bottom: 1px solid rgba(1, 22, 45, 0.16); padding-bottom: 0.9rem; margin-bottom: 0.9rem; }
+  .statement .s-head b { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; }
+  .statement .s-head span { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; color: rgba(1, 22, 45, 0.5); text-transform: uppercase; }
+  .statement .row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px dashed rgba(1, 22, 45, 0.15); font-size: 0.86rem; }
+  .statement .row:last-of-type { border-bottom: none; }
+  .statement .row .label { color: rgba(1, 22, 45, 0.75); }
+  .statement .row .val { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); }
+  .statement .tick { color: var(--ember-500); font-weight: 700; }
+  .statement .s-foot { margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid rgba(1, 22, 45, 0.16); font-family: var(--font-mono); font-size: 0.72rem; color: rgba(1, 22, 45, 0.5); display: flex; justify-content: space-between; }
+
+  /* ---------- closing strip ---------- */
+  .closing-strip { padding: 2.4rem clamp(1.25rem, 4vw, 3rem); border-top: 1px solid rgba(231, 121, 59, 0.22); background: var(--ink-950); }
+  .cs-row { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
+  .cs-row p { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 1.2rem; color: var(--sand-100); max-width: 42ch; }
+
+  /* ---------- footer ---------- */
+  footer { background: var(--ink-950); padding: 0 clamp(1.25rem, 4vw, 3rem) 2.4rem; }
+  @media (max-width: 760px) { footer { padding-bottom: 6rem; } }
+  .foot-rule { height: 2px; background: repeating-linear-gradient(90deg, var(--ember-500) 0 1.5px, transparent 1.5px 32px); opacity: 0.5; margin-bottom: 2rem; }
+  .foot-inner { max-width: 1080px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.2rem; font-size: 0.85rem; color: var(--mist-400); }
+  .foot-links { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+  .foot-links a:hover { color: var(--sand-100); }
+
+  /* ---------- motion ---------- */
+  .reveal { opacity: 0; animation: rise 0.7s ease forwards; }
+  .reveal.d1 { animation-delay: 0.05s; }
+  .reveal.d2 { animation-delay: 0.16s; }
+  .reveal.d3 { animation-delay: 0.27s; }
+  .reveal.d4 { animation-delay: 0.38s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { .reveal { animation: none; opacity: 1; } }
+  .wa-fab { position: fixed; right: 1.4rem; bottom: 1.4rem; z-index: 50; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; background: var(--ember-500); border: 1px solid var(--ember-500); border-radius: 4px; box-shadow: 0 6px 20px rgba(0,0,0,0.35); transition: background 0.15s ease, transform 0.15s ease; }
+  .wa-fab::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--ember-500); animation: wa-pulse 2.4s ease-out infinite; z-index: -1; pointer-events: none; }
+  .wa-fab:hover { background: var(--ember-300); transform: translateY(-2px); }
+  .wa-fab svg { position: relative; z-index: 1; width: 26px; height: 26px; fill: var(--ink-950); }
+  @keyframes wa-pulse { 0% { opacity: 0.5; transform: scale(1); } 100% { opacity: 0; transform: scale(1.9); } }
+  @media (prefers-reduced-motion: reduce) { .wa-fab, .wa-fab:hover { transition: none; transform: none; } .wa-fab::before { animation: none; display: none; } }
+  .wa-bubble { position: fixed; right: 1.4rem; bottom: 5.5rem; z-index: 49; width: 258px; max-width: calc(100vw - 2.8rem); background: var(--sand-100); color: var(--ink-900); border: 1px solid rgba(1, 22, 45, 0.14); border-radius: 2px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.32); padding: 0.9rem 1.6rem 1rem 1rem; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s; }
+  .wa-bubble.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+  .wa-bubble::after { content: ""; position: absolute; right: 22px; bottom: -7px; width: 12px; height: 12px; background: var(--sand-100); border-right: 1px solid rgba(1, 22, 45, 0.14); border-bottom: 1px solid rgba(1, 22, 45, 0.14); transform: rotate(45deg); }
+  .wa-bubble-kicker { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ember-500); margin: 0 0 0.4rem; }
+  .wa-bubble p.wa-bubble-msg { margin: 0; font-size: 0.86rem; line-height: 1.48; color: var(--ink-900); }
+  .wa-bubble-close { position: absolute; top: 0.5rem; right: 0.5rem; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; background: none; border: none; color: var(--mist-400); cursor: pointer; padding: 0; }
+  .wa-bubble-close::before { content: ""; position: absolute; inset: -12px; }
+  .wa-bubble-close:hover { color: var(--ink-900); }
+  @media (prefers-reduced-motion: reduce) { .wa-bubble { transition: none; } }
+</style>
+
+</head>
+<body>
+<header class="site-header">
+  <div class="inner header-inner">
+  <a class="logo" href="index.html" aria-label="Amana'Accounts home">
+    <img class="logo-mark" src="amana-logo-mark.png" alt="" aria-hidden="true" />
+    <span class="logo-word">mana<span class="accent">'</span>Accounts</span>
+  </a>
+  <button type="button" class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navGroup">
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+  </button>
+  <div class="nav-group" id="navGroup">
+  <nav class="site-nav" aria-label="Primary">
+    <a href="services.html">Services</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="blog.html">Blog</a>
+  </nav>
+  <a class="btn btn-primary" href="contact.html">Book a consultation</a>
+  </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="grid-overlay" aria-hidden="true"></div>
+    <div class="crop-mark tl" aria-hidden="true"></div>
+    <div class="crop-mark tr" aria-hidden="true"></div>
+    <p class="ref-block reveal d1" aria-hidden="true"><b>Chartered Accountants</b><br>Dubai · UAE</p>
+
+    <div class="inner hero-content">
+      <h1 class="reveal d2">The numbers,<br>handled properly.</h1>
+      <p class="lede reveal d3">
+        Accounting, VAT and corporate tax, managed end to end by ACA and CTA qualified
+        advisers, so your filings are never the reason you lose sleep.
+      </p>
+      <div class="cta-row reveal d4">
+        <a class="btn btn-primary" href="contact.html">Book a free consultation</a>
+        <a class="btn-tel" href="tel:+971551429144">or call <span class="tabular">+971 55 142 9144</span></a>
+      </div>
+    </div>
+
+    <div class="skyline" aria-hidden="true">
+      <div class="skyline-glow"></div>
+      <div class="skyline-far"></div>
+      <div class="burj">
+        <span class="burj-spire"></span>
+        <span class="t5"></span><span class="t4"></span><span class="t3"></span><span class="t2"></span><span class="t1"></span>
+      </div>
+      <div class="skyline-near"></div>
+      <div class="ledger-rule"></div>
+    </div>
+  </section>
+
+  <section class="credentials" style="padding-top:1.1rem;padding-bottom:1.1rem;">
+    <div class="credentials-inner">
+      <span>ACA Qualified</span><span class="div">·</span>
+      <span>CTA Qualified</span><span class="div">·</span>
+      <span>Official Wafeq Partner</span><span class="div">·</span>
+      <span>Umm Al Quwain, UAE</span>
+    </div>
+  </section>
+
+  <section class="handle">
+    <div class="inner handle-grid">
+      <aside>
+        <p class="side-label">On file</p>
+        <ul class="side-list">
+          <li>ACA Qualified</li>
+          <li>CTA Qualified</li>
+          <li>Wafeq Partner</li>
+          <li>Dubai, UAE</li>
+        </ul>
+      </aside>
+      <div class="handle-main">
+        <p class="kicker">What we handle</p>
+        <h2>Four services. Each one run by someone qualified to do it properly.</h2>
+        <p class="lede-p">No junior staff learning on your file. Every engagement is led by a qualified accountant or tax adviser who has actually done this work before, in practice and in house.</p>
+        <div class="svc-index">
+          <div class="svc-row">
+            <span class="code">BK</span>
+            <div><h3><a href="accounting-and-bookkeeping.html">Accounting &amp; Bookkeeping <span class="arrow" aria-hidden="true">&rarr;</span></a></h3><p>Software setup, monthly reconciliations and reporting you can actually read. Your numbers stay current, not just accurate once a year.</p></div>
+          </div>
+          <div class="svc-row">
+            <span class="code">ADV</span>
+            <div><h3><a href="business-advisory.html">Business Advisory <span class="arrow" aria-hidden="true">&rarr;</span></a></h3><p>Company formation, PRO services, cross border structuring and M&amp;A support, from people who have done it before rather than just read about it.</p></div>
+          </div>
+          <div class="svc-row">
+            <span class="code">VAT</span>
+            <div><h3><a href="vat.html">VAT <span class="arrow" aria-hidden="true">&rarr;</span></a></h3><p>Registration, quarterly returns, refunds and FTA correspondence, handled end to end so nothing slips past a deadline.</p></div>
+          </div>
+          <div class="svc-row">
+            <span class="code">CT</span>
+            <div><h3><a href="corporate-tax.html">Corporate Tax <span class="arrow" aria-hidden="true">&rarr;</span></a></h3><p>Registration, annual filings and the planning that keeps your tax bill as low as the law allows. Not a dirham more.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonial">
+    <div class="inner">
+      <div class="quote-carousel" role="region" aria-label="Client testimonials">
+        <div class="quote-track">
+          <div class="quote-slide is-active">
+            <span class="qmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>Amana Accounts made managing our accounts effortless, freeing up my time to fully focus on my business.</blockquote>
+            <cite>Satisfied client, Dubai SME</cite>
+          </div>
+          <div class="quote-slide">
+            <span class="qmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>They caught a VAT filing error our previous accountant missed. That alone paid for the year.</blockquote>
+            <cite>Founder, Dubai retail business</cite>
+          </div>
+          <div class="quote-slide">
+            <span class="qmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>Finally, an accountant who explains things in plain English instead of jargon.</blockquote>
+            <cite>Director, Dubai consultancy</cite>
+          </div>
+          <div class="quote-slide">
+            <span class="qmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>Corporate tax registration took a week, not the month we were quoted elsewhere.</blockquote>
+            <cite>Owner, Dubai trading company</cite>
+          </div>
+          <div class="quote-slide">
+            <span class="qmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>Responsive, precise and refreshingly upfront about pricing from day one.</blockquote>
+            <cite>CEO, Dubai tech startup</cite>
+          </div>
+        </div>
+        <div class="quote-controls">
+          <button type="button" class="quote-arrow" data-dir="-1" aria-label="Previous testimonial">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="quote-dots" role="tablist" aria-label="Choose testimonial">
+            <button type="button" class="is-active" role="tab" aria-selected="true" aria-label="Testimonial 1"></button>
+            <button type="button" role="tab" aria-selected="false" aria-label="Testimonial 2"></button>
+            <button type="button" role="tab" aria-selected="false" aria-label="Testimonial 3"></button>
+            <button type="button" role="tab" aria-selected="false" aria-label="Testimonial 4"></button>
+            <button type="button" role="tab" aria-selected="false" aria-label="Testimonial 5"></button>
+          </div>
+          <button type="button" class="quote-arrow" data-dir="1" aria-label="Next testimonial">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="inner why-grid">
+      <div class="why-col">
+        <p class="kicker">Why work with us</p>
+        <h2 style="margin-bottom:1.6rem;">Built for businesses that want a straight answer.</h2>
+        <ul>
+          <li><span class="mark" aria-hidden="true"></span><div><h4>Chartered Accountants</h4><p>ACA qualified, so the fundamentals are never in question.</p></div></li>
+          <li><span class="mark" aria-hidden="true"></span><div><h4>Chartered Tax Advisors</h4><p>CTA qualified, with real experience on both sides, in practice and in house.</p></div></li>
+          <li><span class="mark" aria-hidden="true"></span><div><h4>Tailored for SMEs</h4><p>Built for small and medium businesses, not an afterthought to enterprise clients.</p></div></li>
+          <li><span class="mark" aria-hidden="true"></span><div><h4>Transparent pricing</h4><p>The price you're quoted is the price you pay. No surprise add-ons.</p></div></li>
+          <li><span class="mark" aria-hidden="true"></span><div><h4>Wafeq partner</h4><p>Official business partner of <a href="https://www.wafeq.com" target="_blank" rel="noopener">wafeq.com</a>.</p></div></li>
+        </ul>
+      </div>
+
+      <div class="stmt-col">
+        <div class="statement" aria-hidden="true">
+          <div class="s-head"><b>Amana'Accounts</b><span>Monthly Statement</span></div>
+          <div class="row"><span class="label">Bookkeeping reconciled</span><span class="val tabular">Aug 2026 <span class="tick">✓</span></span></div>
+          <div class="row"><span class="label">VAT return filed</span><span class="val tabular">Q2 2026 <span class="tick">✓</span></span></div>
+          <div class="row"><span class="label">Corporate tax registered</span><span class="val tabular">TRN active <span class="tick">✓</span></span></div>
+          <div class="row"><span class="label">FTA correspondence</span><span class="val tabular">Up to date <span class="tick">✓</span></span></div>
+          <div class="s-foot"><span>REF. AA-2026-0142</span><span>DUBAI, UAE</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-strip">
+    <div class="cs-row">
+      <p>Ready when you are. Book a free consultation and we'll tell you exactly what your business needs.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="contact.html">Book a free consultation</a>
+        <a class="btn-tel" href="tel:+971551429144">or call <span class="tabular">+971 55 142 9144</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-rule" aria-hidden="true"></div>
+  <div class="foot-inner">
+    <span>© 2026 Amana'Accounts.</span>
+    <div class="foot-links">
+      <a href="services.html">Services</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="https://www.linkedin.com/company/amana-accounts/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<div class="wa-bubble" id="waBubble" role="status">
+  <button type="button" class="wa-bubble-close" id="waBubbleClose" aria-label="Dismiss">
+    <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+  </button>
+  <p class="wa-bubble-kicker">WhatsApp</p>
+  <p class="wa-bubble-msg"><strong>Amana&#39;Accounts.</strong> Message us and we&#39;ll respond shortly.</p>
+</div>
+<a class="wa-fab" href="https://api.whatsapp.com/send/?phone=971551429144&amp;text&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="Chat with us on WhatsApp">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16.001 3C9.107 3 3.5 8.607 3.5 15.5c0 2.29.615 4.44 1.688 6.293L3 29l7.395-2.146A12.44 12.44 0 0 0 16 28.5c6.894 0 12.5-5.606 12.5-12.5S22.895 3 16.001 3Zm0 22.7c-2.02 0-3.96-.55-5.65-1.59l-.405-.244-4.386 1.273 1.293-4.317-.263-.42a10.24 10.24 0 0 1-1.59-5.402c0-5.652 4.6-10.25 10.25-10.25 5.65 0 10.25 4.598 10.25 10.25 0 5.653-4.6 10.25-10.25 10.25Zm5.652-7.646c-.31-.155-1.833-.905-2.117-1.008-.284-.104-.491-.155-.698.155-.207.31-.803 1.008-.984 1.215-.181.207-.362.233-.672.078-.31-.155-1.31-.483-2.495-1.54-.923-.823-1.546-1.84-1.727-2.15-.181-.31-.02-.478.136-.633.14-.14.31-.362.465-.543.155-.181.207-.31.31-.517.104-.207.052-.388-.026-.543-.078-.155-.698-1.68-.957-2.301-.252-.605-.508-.523-.698-.533l-.594-.01c-.207 0-.543.078-.828.388-.284.31-1.086 1.06-1.086 2.585 0 1.526 1.112 3 1.267 3.207.155.207 2.19 3.343 5.306 4.689.741.32 1.32.51 1.77.653.744.237 1.42.204 1.955.124.596-.089 1.833-.75 2.092-1.474.259-.724.259-1.345.181-1.474-.077-.13-.284-.207-.594-.362Z"/></svg>
+</a>
+
+<script>
+  (function () {
+    var track = document.querySelector('.quote-track');
+    if (!track) return;
+    var slides = track.querySelectorAll('.quote-slide');
+    var dots = document.querySelectorAll('.quote-dots button');
+    var current = 0;
+    var timer;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function show(index) {
+      slides[current].classList.remove('is-active');
+      dots[current].classList.remove('is-active');
+      dots[current].setAttribute('aria-selected', 'false');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('is-active');
+      dots[current].classList.add('is-active');
+      dots[current].setAttribute('aria-selected', 'true');
+    }
+
+    function next() { show(current + 1); }
+
+    function startTimer() {
+      clearInterval(timer);
+      if (reduceMotion) return;
+      timer = setInterval(next, 6000);
+    }
+
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        show(i);
+        startTimer();
+      });
+    });
+
+    document.querySelectorAll('.quote-arrow').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        show(current + parseInt(btn.getAttribute('data-dir'), 10));
+        startTimer();
+      });
+    });
+
+    startTimer();
+  })();
+</script>
+
+<script>
+  (function () {
+    var bubble = document.getElementById('waBubble');
+    var closeBtn = document.getElementById('waBubbleClose');
+    var fab = document.querySelector('.wa-fab');
+    if (!bubble || !closeBtn || !fab) return;
+    var KEY = 'wa-bubble-dismissed';
+    function dismiss() {
+      bubble.classList.remove('is-visible');
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+    }
+    try {
+      if (!localStorage.getItem(KEY)) {
+        setTimeout(function () { bubble.classList.add('is-visible'); }, 1400);
+      }
+    } catch (e) {
+      setTimeout(function () { bubble.classList.add('is-visible'); }, 1400);
+    }
+    closeBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      dismiss();
+    });
+    fab.addEventListener('click', dismiss);
+  })();
+</script>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('navToggle');
+    var group = document.getElementById('navGroup');
+    var header = document.querySelector('.site-header');
+    if (!toggle || !group || !header) return;
+    function closeMenu() {
+      group.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    function openMenu() {
+      group.style.top = header.getBoundingClientRect().bottom + 'px';
+      group.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+    toggle.addEventListener('click', function () {
+      if (group.classList.contains('is-open')) { closeMenu(); } else { openMenu(); }
+    });
+    group.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', closeMenu);
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 760) closeMenu();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+  })();
+</script>
+</body>
+</html>
