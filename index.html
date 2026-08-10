@@ -88,6 +88,7 @@
   .crop-mark.tl { top: 1.6rem; left: clamp(1.25rem, 4vw, 3rem); border-top: 1px solid; border-left: 1px solid; }
   .crop-mark.tr { top: 1.6rem; right: clamp(1.25rem, 4vw, 3rem); border-top: 1px solid; border-right: 1px solid; }
   .ref-block { position: absolute; top: 3.4rem; right: clamp(1.25rem, 4vw, 3rem); z-index: 3; text-align: right; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.7; letter-spacing: 0.04em; color: var(--mist-400); }
+  @media (max-width: 640px) { .ref-block, .crop-mark.tr { display: none; } }
   .ref-block b { color: var(--sand-300); font-weight: 400; }
   .hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.06; letter-spacing: -0.01em; margin: 2.75rem 0 1.3rem; text-wrap: balance; color: var(--sand-100); }
   .hero .lede { font-size: clamp(1.02rem, 1.6vw, 1.18rem); line-height: 1.65; color: var(--mist-400); max-width: 46ch; margin: 0 0 2.2rem; }

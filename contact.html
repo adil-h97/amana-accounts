@@ -58,8 +58,9 @@
   }
 
   .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; padding: 0.8rem 1.35rem; border-radius: 2px; white-space: nowrap; transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease; cursor: pointer; border: 1px solid transparent; }
-  .btn-primary { background: var(--ember-500); color: var(--ink-950); border-color: var(--ember-500); width: 100%; justify-content: center; }
+  .btn-primary { background: var(--ember-500); color: var(--ink-950); border-color: var(--ember-500); }
   .btn-primary:hover { background: transparent; color: var(--ember-300); }
+  form .btn-primary { width: 100%; justify-content: center; }
 
   .page-header { position: relative; padding: clamp(3rem, 7vh, 4.5rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 6vh, 4rem); overflow: hidden; background: radial-gradient(ellipse 60% 60% at 85% 0%, rgba(231, 121, 59, 0.10), transparent 60%), var(--ink-900); border-bottom: 1px solid rgba(231, 121, 59, 0.22); }
   .grid-overlay { position: absolute; inset: 0; background-image: repeating-linear-gradient(90deg, rgba(246, 235, 228, 0.05) 0 1px, transparent 1px 88px), repeating-linear-gradient(0deg, rgba(246, 235, 228, 0.05) 0 1px, transparent 1px 88px); -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%); mask-image: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%); pointer-events: none; }
@@ -67,8 +68,8 @@
   .crop-mark.tl { top: 1.6rem; left: clamp(1.25rem, 4vw, 3rem); border-top: 1px solid; border-left: 1px solid; }
   .crop-mark.tr { top: 1.6rem; right: clamp(1.25rem, 4vw, 3rem); border-top: 1px solid; border-right: 1px solid; }
   .ref-block { position: absolute; top: 3.4rem; right: clamp(1.25rem, 4vw, 3rem); z-index: 3; text-align: right; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.7; letter-spacing: 0.04em; color: var(--mist-400); }
-  .ref-block b { color: var(--sand-300); font-weight: 400; }
   @media (max-width: 640px) { .ref-block, .crop-mark.tr { display: none; } }
+  .ref-block b { color: var(--sand-300); font-weight: 400; }
   .page-header .inner { position: relative; z-index: 2; }
   .page-header h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1.08; margin: 2.5rem 0 1rem; text-wrap: balance; color: var(--sand-100); }
   .page-header p { font-size: 1.05rem; line-height: 1.6; color: var(--mist-400); max-width: 56ch; margin: 0; }
