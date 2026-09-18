@@ -1,0 +1,5 @@
+# https://www.amanaaccounts.com/
+User-agent: *
+Allow: /
+
+Sitemap: https://www.amanaaccounts.com/sitemap.xml
