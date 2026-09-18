@@ -126,6 +126,9 @@
   .foot-inner { max-width: 1080px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.2rem; font-size: 0.85rem; color: var(--mist-400); }
   .foot-links { display: flex; gap: 1.4rem; flex-wrap: wrap; }
   .foot-links a:hover { color: var(--sand-100); }
+  .foot-credit::before { content: "\00b7"; color: var(--ember-500); opacity: 0.75; margin: 0 0.5rem; }
+  .foot-credit a { color: var(--sand-300); transition: color 0.15s ease; }
+  .foot-credit a:hover { color: var(--ember-300); }
   .wa-fab { position: fixed; right: 1.4rem; bottom: 1.4rem; z-index: 50; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; background: var(--ember-500); border: 1px solid var(--ember-500); border-radius: 4px; box-shadow: 0 6px 20px rgba(0,0,0,0.35); transition: background 0.15s ease, transform 0.15s ease; }
   .wa-fab::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--ember-500); animation: wa-pulse 2.4s ease-out infinite; z-index: -1; pointer-events: none; }
   .wa-fab:hover { background: var(--ember-300); transform: translateY(-2px); }
@@ -260,7 +263,7 @@
 <footer>
   <div class="foot-rule" aria-hidden="true"></div>
   <div class="foot-inner">
-    <span>© 2026 Amana'Accounts.</span>
+    <span>© 2026 Amana'Accounts.<span class="foot-credit">Developed by <a href="https://adildigital.co.uk/" target="_blank" rel="noopener">AdilDigital</a></span></span>
     <div class="foot-links">
       <a href="/services">Services</a>
       <a href="/pricing">Pricing</a>

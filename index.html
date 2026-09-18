@@ -193,6 +193,9 @@
   .foot-inner { max-width: 1080px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.2rem; font-size: 0.85rem; color: var(--mist-400); }
   .foot-links { display: flex; gap: 1.4rem; flex-wrap: wrap; }
   .foot-links a:hover { color: var(--sand-100); }
+  .foot-credit::before { content: "\00b7"; color: var(--ember-500); opacity: 0.75; margin: 0 0.5rem; }
+  .foot-credit a { color: var(--sand-300); transition: color 0.15s ease; }
+  .foot-credit a:hover { color: var(--ember-300); }
 
   /* ---------- motion ---------- */
   .reveal { opacity: 0; animation: rise 0.7s ease forwards; }
@@ -412,7 +415,7 @@
 <footer>
   <div class="foot-rule" aria-hidden="true"></div>
   <div class="foot-inner">
-    <span>© 2026 Amana'Accounts.</span>
+    <span>© 2026 Amana'Accounts.<span class="foot-credit">Developed by <a href="https://adildigital.co.uk/" target="_blank" rel="noopener">AdilDigital</a></span></span>
     <div class="foot-links">
       <a href="/services">Services</a>
       <a href="/pricing">Pricing</a>
